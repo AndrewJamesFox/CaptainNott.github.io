@@ -1,0 +1,37 @@
+---
+title: "Course 9 Assignment 1"
+author: "Andrew J Fox"
+date: "2023-04-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+library(leaflet)
+```
+
+Here is a map of the top 5 rated restaurants in Dundalk, MD, with their menus.
+
+```{r}
+locs <- c("Papa's Smokehouse Saloon", "Scoozi Restaurant", "Salty Dog's Crab House", 
+          "Texas Roadhouse", "North Point Diner")
+lats <- c(39.28057835646343, 39.28044548101631, 39.271940928155765, 39.268751454685734, 
+          39.2811098557315)
+lngs <- c(-76.49086458050562, -76.50167924751126, -76.4714668444478, -76.5051124751321, 
+          -76.49034959636249)
+menus <- c("http://papassmokehousesaloon.com/regular-menu..html", 
+           "https://www.orderscoozzi.com/order/",
+           "https://m.facebook.com/SaltyDogsCrabHouseInc/", 
+           "https://www.texasroadhouse.com/locations/maryland/dundalk/menu", 
+           "http://places.singleplatform.com/north-point-diner/menu?ref=google")
+```
+
+```{r}
+df %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addMarkers(lat=lats, lng=lngs, popup=c(locs, menus), clusterOptions=markerClusterOptions)
+```
